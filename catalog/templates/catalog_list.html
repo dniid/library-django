@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Catálogos</title>
+    </head>
+    <body>
+    <h1>Lista de Catálogos</h1>
+    <center><a href="{% url 'catalog_create' %}">Novo</a></center>
+    <table>
+        <thead>
+        <tr>  
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Data de Criação</th>
+            <th>Actions</th>  
+        </tr>  
+        </thead>  
+        <tbody>  
+    {% for catalog in catalogs %}
+        <tr>  
+            <td>{{ catalog.id }}</td>
+            <td>{{ catalog.cname }}</td>
+            <td>{{ catalog.cdate }}</td>
+            <td>  
+                <a href="update/{{ catalog.id }}">Edit</a>
+                <a href="delete/{{ catalog.id }}">Delete</a>
+            </td>  
+        </tr>  
+    {% endfor %}  
+        </tbody>  
+    </table>  
+    <br>  
+    <br>
+    </body>
+</html>
