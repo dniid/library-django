@@ -14,7 +14,7 @@ def aut(request):
                 pass
     else:
         form = AuthorForm()
-    return render(request, 'catalog_list.html', {'form': form})
+    return render(request, 'book_list.html', {'form': form})
 
 
 def show(request):

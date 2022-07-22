@@ -2,12 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">  
-        <title>Catalog Create</title>
+        <title>Book Create</title>
     </head>  
     <body>  
         <form method="POST" enctype="multipart/form-data">{% csrf_token %}
             <table>
-                <label>Criação de Catálogo</label>
+                <label>Criação de Livro</label>
                 {% for field in form %}
                 <tr>
                     <th>{{field.label}}</th>
@@ -16,9 +16,9 @@
                 {% endfor %}
             </table>
             <button type="submit">Enviar</button>
+            <br>
+            <br>
+            <input type=button value="Voltar" onClick="window.history.back();return false;">
         </form>
-        <br>
-        <br>
-    <input type=button value="Voltar" onClick="window.history.back();return false;">
     </body>  
 </html>

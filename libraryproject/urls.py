@@ -5,5 +5,6 @@ from menu.views import menuView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', menuView),
-    path('catalog/', include('catalog.urls'))
+    path('catalog/', include('catalog.urls')),
+    path('book/', include('book.urls')),
 ]

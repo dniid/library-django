@@ -9,7 +9,7 @@ def create(request):
         if form.is_valid():
             try:
                 form.save()
-                return redirect('read')
+                return redirect('cread')
             except:
                 pass
     else:
@@ -27,11 +27,11 @@ def update(request, id):
     form = CatalogForm(request.POST, instance=catalog)
     if form.is_valid():
         form.save()
-        return redirect("read")
+        return redirect("cread")
     return render(request, 'catalog_form.html', {'form': form})
 
 
 def delete(request, id):
     catalog = Catalog.objects.get(id=id)
     catalog.delete()
-    return redirect("read")
+    return redirect("cread")

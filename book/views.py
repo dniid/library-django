@@ -3,28 +3,23 @@ from book.forms import BookForm
 from book.models import Book
 
 
-def book(request):
+def create(request):
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
             try:
                 form.save()
-                return redirect('/show')
+                return redirect('bread')
             except:
                 pass
     else:
         form = BookForm()
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'book_form.html', {'form': form})
 
 
-def show(request):
+def read(request):
     books = Book.objects.all()
-    return render(request, "show.html", {'books': books})
-
-
-def edit(request, id):
-    book = Book.objects.get(id=id)
-    return render(request, 'edit.html', {'book': book})
+    return render(request, "book_list.html", {'books': books})
 
 
 def update(request, id):
@@ -32,11 +27,11 @@ def update(request, id):
     form = BookForm(request.POST, instance=book)
     if form.is_valid():
         form.save()
-        return redirect("/show")
-    return render(request, 'edit.html', {'book': book})
+        return redirect("bread")
+    return render(request, 'book_form.html', {'form': form})
 
 
-def destroy(request, id):
+def delete(request, id):
     book = Book.objects.get(id=id)
     book.delete()
-    return redirect("/show")
+    return redirect("bread")
