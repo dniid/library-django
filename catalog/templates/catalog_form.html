@@ -6,10 +6,10 @@
     </head>  
     <body>  
         <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-            <table>
+            <table cellspacing="3" bgcolor="#000000">
                 <label>Criação de Catálogo</label>
                 {% for field in form %}
-                <tr>
+                <tr bgcolor="#ffffff">
                     <th>{{field.label}}</th>
                     <td>{{field}}</td>
                 </tr>

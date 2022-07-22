@@ -7,4 +7,5 @@ urlpatterns = [
     path('', menuView),
     path('catalog/', include('catalog.urls')),
     path('book/', include('book.urls')),
+    path('author/', include('author.urls')),
 ]

@@ -2,12 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">  
-        <title>Book Create</title>
+        <title>Author Create</title>
     </head>  
     <body>  
         <form method="POST" enctype="multipart/form-data">{% csrf_token %}
             <table cellspacing="3" bgcolor="#000000">
-                <label>Criação de Livro</label>
+                <label>Criação de Autor</label>
                 {% for field in form %}
                 <tr bgcolor="#ffffff">
                     <th>{{field.label}}</th>

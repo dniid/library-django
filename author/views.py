@@ -3,28 +3,23 @@ from author.forms import AuthorForm
 from author.models import Author
 
 
-def aut(request):
+def create(request):
     if request.method == "POST":
         form = AuthorForm(request.POST)
         if form.is_valid():
             try:
                 form.save()
-                return redirect('/show')
+                return redirect('aread')
             except:
                 pass
     else:
         form = AuthorForm()
-    return render(request, 'book_list.html', {'form': form})
+    return render(request, 'author_form.html', {'form': form})
 
 
-def show(request):
+def read(request):
     authors = Author.objects.all()
-    return render(request, "show.html", {'authors': authors})
-
-
-def edit(request, id):
-    author = Author.objects.get(id=id)
-    return render(request, 'edit.html', {'author': author})
+    return render(request, "author_list.html", {'authors': authors})
 
 
 def update(request, id):
@@ -32,11 +27,11 @@ def update(request, id):
     form = AuthorForm(request.POST, instance=author)
     if form.is_valid():
         form.save()
-        return redirect("/show")
-    return render(request, 'edit.html', {'author': author})
+        return redirect("aread")
+    return render(request, 'author_form.html', {'form': form})
 
 
-def destroy(request, id):
+def delete(request, id):
     author = Author.objects.get(id=id)
     author.delete()
-    return redirect("/show")
+    return redirect("aread")
