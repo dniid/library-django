@@ -23,8 +23,8 @@
             <td>{{ author.nome }}</td>
             <td>{{ author.data_criacao }}</td>
             <td>  
-                <a href="update/{{ author.id }}">Edit</a>
-                <a href="delete/{{ author.id }}">Delete</a>
+                <a href="{% url 'author_update' author.id %}">Edit</a>
+                <a href="{% url 'author_delete' author.id %}">Delete</a>
             </td>  
         </tr>  
     {% endfor %}  

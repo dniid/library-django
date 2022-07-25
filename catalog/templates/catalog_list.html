@@ -23,8 +23,8 @@
             <td>{{ catalog.nome }}</td>
             <td>{{ catalog.data_criacao }}</td>
             <td>  
-                <a href="update/{{ catalog.id }}">Edit</a>
-                <a href="delete/{{ catalog.id }}">Delete</a>
+                <a href="{% url 'catalog_update' catalog.id %}">Edit</a>
+                <a href="{% url 'catalog_delete' catalog.id %}">Delete</a>
             </td>  
         </tr>  
     {% endfor %}  
