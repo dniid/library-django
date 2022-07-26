@@ -1,37 +1,35 @@
-from django.shortcuts import render, redirect
-from catalog.forms import CatalogForm
-from catalog.models import Catalog
+from django.views import View
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Catalog
 
 
-def create(request):
-    if request.method == "POST":
-        form = CatalogForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('cread')
-            except:
-                pass
-    else:
-        form = CatalogForm()
-    return render(request, 'catalog_form.html', {'form': form})
+class CatalogBaseView(View):
+    model = Catalog
+    fields = '__all__'
+    success_url = reverse_lazy('catalog_all')
 
 
-def read(request):
-    catalogs = Catalog.objects.all()
-    return render(request, "catalog_list.html", {'catalogs': catalogs})
+class CatalogListView(CatalogBaseView, ListView):
+    """View to list all catalogs.
+    Use the 'catalog_list' variable in the template
+    to access all Catalog objects"""
+
+    template_name = "catalog_list.html"
 
 
-def update(request, id):
-    catalog = Catalog.objects.get(id=id)
-    form = CatalogForm(request.POST, instance=catalog)
-    if form.is_valid():
-        form.save()
-        return redirect("cread")
-    return render(request, 'catalog_form.html', {'form': form})
+class CatalogCreateView(CatalogBaseView, CreateView):
+    """View to create a new catalog"""
+
+    template_name = "catalog_form.html"
 
 
-def delete(request, id):
-    catalog = Catalog.objects.get(id=id)
-    catalog.delete()
-    return redirect("cread")
+class CatalogUpdateView(CatalogBaseView, UpdateView):
+    """View to update an catalog"""
+
+    template_name = "catalog_form.html"
+
+
+class CatalogDeleteView(CatalogBaseView, DeleteView):
+    """View to delete an catalog"""

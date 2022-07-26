@@ -1,37 +1,35 @@
-from django.shortcuts import render, redirect
-from book.forms import BookForm
-from book.models import Book
+from django.views import View
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Book
 
 
-def create(request):
-    if request.method == "POST":
-        form = BookForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('bread')
-            except:
-                pass
-    else:
-        form = BookForm()
-    return render(request, 'book_form.html', {'form': form})
+class BookBaseView(View):
+    model = Book
+    fields = '__all__'
+    success_url = reverse_lazy('book_all')
 
 
-def read(request):
-    books = Book.objects.all()
-    return render(request, "book_list.html", {'books': books})
+class BookListView(BookBaseView, ListView):
+    """View to list all books.
+    Use the 'book_list' variable in the template
+    to access all Book objects"""
+
+    template_name = "book_list.html"
 
 
-def update(request, id):
-    book = Book.objects.get(id=id)
-    form = BookForm(request.POST, instance=book)
-    if form.is_valid():
-        form.save()
-        return redirect("bread")
-    return render(request, 'book_form.html', {'form': form})
+class BookCreateView(BookBaseView, CreateView):
+    """View to create a new book"""
+
+    template_name = "book_form.html"
 
 
-def delete(request, id):
-    book = Book.objects.get(id=id)
-    book.delete()
-    return redirect("bread")
+class BookUpdateView(BookBaseView, UpdateView):
+    """View to update an book"""
+
+    template_name = "book_form.html"
+
+
+class BookDeleteView(BookBaseView, DeleteView):
+    """View to delete an book"""

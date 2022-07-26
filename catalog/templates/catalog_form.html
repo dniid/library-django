@@ -6,14 +6,9 @@
     </head>  
     <body>  
         <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-            <table cellspacing="3" bgcolor="#000000">
+            <table cellspacing="3">
                 <label>Formulário de Catálogo</label>
-                {% for field in form %}
-                <tr bgcolor="#ffffff">
-                    <th>{{field.label}}</th>
-                    <td>{{field}}</td>
-                </tr>
-                {% endfor %}
+                {{form.as_table}}
             </table>
             <button type="submit">Enviar</button>
         </form>

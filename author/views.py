@@ -1,37 +1,35 @@
-from django.shortcuts import render, redirect
-from author.forms import AuthorForm
-from author.models import Author
+from django.views import View
+from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Author
 
 
-def create(request):
-    if request.method == "POST":
-        form = AuthorForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('aread')
-            except:
-                pass
-    else:
-        form = AuthorForm()
-    return render(request, 'author_form.html', {'form': form})
+class AuthorBaseView(View):
+    model = Author
+    fields = '__all__'
+    success_url = reverse_lazy('author_all')
 
 
-def read(request):
-    authors = Author.objects.all()
-    return render(request, "author_list.html", {'authors': authors})
+class AuthorListView(AuthorBaseView, ListView):
+    """View to list all authors.
+    Use the 'author_list' variable in the template
+    to access all Author objects"""
+
+    template_name = "author_list.html"
 
 
-def update(request, id):
-    author = Author.objects.get(id=id)
-    form = AuthorForm(request.POST, instance=author)
-    if form.is_valid():
-        form.save()
-        return redirect("aread")
-    return render(request, 'author_form.html', {'form': form})
+class AuthorCreateView(AuthorBaseView, CreateView):
+    """View to create a new author"""
+
+    template_name = "author_form.html"
 
 
-def delete(request, id):
-    author = Author.objects.get(id=id)
-    author.delete()
-    return redirect("aread")
+class AuthorUpdateView(AuthorBaseView, UpdateView):
+    """View to update an author"""
+
+    template_name = "author_form.html"
+
+
+class AuthorDeleteView(AuthorBaseView, DeleteView):
+    """View to delete an author"""

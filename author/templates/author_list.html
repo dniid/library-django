@@ -17,13 +17,13 @@
         </tr>  
         </thead>  
         <tbody>  
-    {% for author in authors %}
+    {% for author in author_list %}
         <tr bgcolor="#ffffff">
             <td>{{ author.id }}</td>
             <td>{{ author.nome }}</td>
             <td>{{ author.data_criacao }}</td>
-            <td>  
-                <a href="{% url 'author_update' author.id %}">Edit</a>
+            <td>
+                <a href="{% url 'author_update' author.id %}">Update</a>
                 <a href="{% url 'author_delete' author.id %}">Delete</a>
             </td>  
         </tr>  
